@@ -1,0 +1,12 @@
+- name: Set up password-less sudo for admin users
+  lineinfile: >
+    dest=/etc/sudoers
+    regexp='^%sudo'
+    line='%sudo   ALL=(ALL) NOPASSWD:ALL'
+    state=present backup=yes
+
+- name: Configure firewall for SSH
+  ufw: rule=allow name=OpenSSH
+     
+- name: Enable firewall 
+  ufw: state=enabled 

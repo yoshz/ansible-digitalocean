@@ -1,0 +1,54 @@
+- hosts: localhost
+  vars_files:
+    - vars.yml
+  vars_prompt:
+    do_name: "Name of server"
+    do_dns: "DNS name to bind"
+  tasks:
+    - digital_ocean_sshkey: >
+        state=present
+        name="{{ do_ssh_name }}"
+        ssh_pub_key="{{ do_ssh_pub_key }}"
+        client_id={{ do_client_id }}
+        api_key={{ do_api_key }}
+      register: do_droplet
+
+    - digital_ocean: >
+        state=active
+        name={{ do_name }}
+        region_id={{ do_region }}
+        size_id={{ do_size }}
+        image_id={{ do_image }}
+        ssh_key_ids={{ do_droplet.ssh_key.id }}
+        unique_name=yes
+        client_id={{ do_client_id }}
+        api_key={{ do_api_key }}
+        wait_timeout=600
+      register: do_droplet
+          
+    - name: Register DNS
+      digital_ocean_domain: >
+        state=present
+        name="{{ do_dns }}"
+        ip="{{ do_droplet.droplet.ip_address }}"
+        client_id={{ do_client_id }}
+        api_key={{ do_api_key }}
+      when: do_dns is defined
+
+    - debug: msg="ID is {{ do_droplet.droplet.id }}"
+    - debug: msg="IP is {{ do_droplet.droplet.ip_address }}"
+          
+    - name: Add new droplet to inventory
+      add_host: >
+        name="{{ do_name }}"
+        groups=dohosts
+        ansible_ssh_host="{{ do_droplet.droplet.ip_address }}"
+        ansible_ssh_user=root
+
+- hosts: dohosts
+  vars_files:
+    - vars.yml
+  tasks:
+    - include: tasks/software.yml
+    - include: tasks/security.yml
+    - include: tasks/users.yml

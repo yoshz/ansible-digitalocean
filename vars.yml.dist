@@ -1,0 +1,17 @@
+# DO API settings
+do_client_id: ~
+do_api_key: ~
+
+# DO SSH key settings
+do_ssh_name: ansible
+do_ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+# DO droplet settings
+do_region: 5 # AMS
+do_size: 62 # 2 GB / 2 CPU
+do_image: 6918990 # Ubuntu 14.04
+
+# System user to create
+ssh_user: "{{ lookup('env', 'USERNAME') }}"
+ssh_groups: "sudo"
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

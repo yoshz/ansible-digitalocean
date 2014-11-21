@@ -1,0 +1,21 @@
+- hosts: localhost
+  vars_files:
+    - vars.yml
+  vars_prompt:
+    do_name: "Servername to destroy"
+    do_dns: "DNS name to delete"
+  tasks:
+    - digital_ocean: >
+        state=absent
+        name={{ do_name }}
+        unique_name=yes
+        client_id={{ do_client_id }}
+        api_key={{ do_api_key }}
+
+    - name: Remove DNS record
+      digital_ocean_domain: >
+        state=absent
+        name="{{ do_dns }}"
+        client_id={{ do_client_id }}
+        api_key={{ do_api_key }}
+      when: do_dns is defined
