@@ -18,4 +18,4 @@
         name="{{ do_dns }}"
         client_id={{ do_client_id }}
         api_key={{ do_api_key }}
-      when: do_dns is defined
+      when: do_dns|length > 0

@@ -33,7 +33,7 @@
         ip="{{ do_droplet.droplet.ip_address }}"
         client_id={{ do_client_id }}
         api_key={{ do_api_key }}
-      when: do_dns is defined
+      when: do_dns|length > 0
 
     - debug: msg="ID is {{ do_droplet.droplet.id }}"
     - debug: msg="IP is {{ do_droplet.droplet.ip_address }}"
