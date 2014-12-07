@@ -49,6 +49,7 @@
   vars_files:
     - vars.yml
   tasks:
+    - include: tasks/swap.yml
     - include: tasks/software.yml
     - include: tasks/security.yml
     - include: tasks/users.yml

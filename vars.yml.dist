@@ -11,6 +11,10 @@ do_region: 5 # AMS
 do_size: 62 # 2 GB / 2 CPU
 do_image: 6918990 # Ubuntu 14.04
 
+# Swap settings
+swap_file_path: /mnt/1GB.swap
+swap_file_size_kb: 1048576
+
 # System user to create
 ssh_user: "{{ lookup('env', 'USERNAME') }}"
 ssh_groups: "sudo"
