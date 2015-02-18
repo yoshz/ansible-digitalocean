@@ -9,7 +9,7 @@ do_ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 # DO droplet settings
 do_region: 5 # AMS
 do_size: 62 # 2 GB / 2 CPU
-do_image: 6918990 # Ubuntu 14.04
+do_image: 9801950 # Ubuntu 14.04 x64
 
 # Swap settings
 swap_file_path: /mnt/1GB.swap

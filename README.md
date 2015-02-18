@@ -15,18 +15,24 @@ Inspired by [hostmaster/ansible-digitalocean-bootstrap](https://github.com/hostm
 * Install ansible
 
     sudo apt-get install python-pip
-    sudo pip install ansible
+    sudo pip install ansible dopy
+    
+* Make sure your python path is configured correctly. 
+
+    # for example when using OSX homebrew
+    export PYTHONPATH=/usr/local/lib/python2.7/site-packages
 
 * Copy vars.yml.dist to vars.yml and change the variables to your need.
 
 * Create the default hosts file (optional):
 
-    sudo echo localhost > /etc/ansible/hosts
+    sudo echo "localhost ansible_connection=local" > /etc/ansible/hosts
 
 ### Digital Ocean configuration
 
-Create a new API key on the [API access page](https://cloud.digitalocean.com/api_access) and add the client_id and api_key to `vars.yml`.
-
+Create a new API key on the [API access page](https://cloud.digitalocean.com/api_access). 
+Only API v1 is supported currently by Ansible. 
+Add the client_id and api_key to `vars.yml`.
 
 ## Playbooks
 
