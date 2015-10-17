@@ -13,7 +13,7 @@ do_image: 9801950 # Ubuntu 14.04 x64
 
 # Swap settings
 swap_file_path: /mnt/1GB.swap
-swap_file_size_kb: 1048576
+swap_file_size_mb: 1024
 
 # System user to create
 ssh_user: "{{ lookup('env', 'USERNAME') }}"
