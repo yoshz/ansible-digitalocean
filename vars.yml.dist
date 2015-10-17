@@ -1,16 +1,16 @@
-# DO API settings
+# DO API v1 settings
 do_client_id: ~
 do_api_key: ~
 
 # DO SSH key settings
 do_ssh_name: ansible
-do_ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
-do_ssh_private_key: "~/.ssh/id_rsa"
+do_ssh_pub_key: "{{ lookup('file', '~/.ssh/id_dsa.pub') }}"
+do_ssh_private_key: "~/.ssh/id_dsa"
 
 # DO droplet settings
 do_region: 5 # AMS
-do_size: 62 # 2 GB / 2 CPU
-do_image: 9801950 # Ubuntu 14.04 x64
+do_size: 63 # 1 GB / 1 CPU
+do_image: 13089493 # Ubuntu 14.04 x64
 
 # Swap settings
 swapfile_location: /swapfile
@@ -19,6 +19,6 @@ swapfile_swappiness: 10
 swapfile_vfs_cache_pressure: 50
 
 # System user to create
-ssh_user: "{{ lookup('env', 'USERNAME') }}"
+ssh_user: "{{ lookup('env', 'USER') }}"
 ssh_groups: "sudo"
-ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_dsa.pub') }}"

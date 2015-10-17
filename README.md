@@ -12,39 +12,43 @@ Inspired by [hostmaster/ansible-digitalocean-bootstrap](https://github.com/hostm
 
 ## Installation
 
-1. Install ansible [Ubuntu]
-  - sudo apt-get install python-pip
-  - sudo pip install ansible dopy
+* Install ansible:
+  * Ubuntu:
 
-2. Install ansible [OSX homebrew]
-  - brew install python-pip
-  - pip install ansible dopy
+    sudo apt-get install python-pip
+    sudo pip install ansible dopy
 
-3. Make sure your python path is configured correctly. 
-  - for example when using OSX homebrew
-    
-    >     export PYTHONPATH=/usr/local/lib/python2.7/site-packages
+  * OSX homebrew:
 
-4. Copy vars.yml.dist to vars.yml and change the variables to your need.
+    brew install python-pip
+    pip install ansible dopy
 
-5. Create the default hosts file (optional):
+* Make sure your python path is configured correctly. For example:
 
-    sudo echo "localhost ansible_connection=local" > /etc/ansible/hosts
+    export PYTHONPATH=/usr/local/lib/python2.7/site-packages
 
-### Digital Ocean configuration
+* Copy vars.yml.dist to vars.yml and change the variables to your need.
+
+  * List of all regions: https://api.digitalocean.com/v1/regions/?client_id=[client_id]&api_key=[api_key]
+  * List of all images: https://api.digitalocean.com/v1/images/?client_id=[client_id]&api_key=[api_key]
+
+
+## Digital Ocean configuration
 
 Create a new API key on the [API access page](https://cloud.digitalocean.com/api_access). 
 Only API v1 is supported currently by Ansible. 
 Add the client_id and api_key to `vars.yml`.
 
+
 ## Playbooks
 
 ### launch.yml
+
 Launch and provision a new server on Digital Ocean.
 
-    ansible-playbook launch.yml
+    ansible-playbook -i hosts launch.yml
 
-#### What this Playbook do for you
+What this Playbook do for you?
 
 - configure swap file
 - install ufw, fail2ban
@@ -58,5 +62,5 @@ Launch and provision a new server on Digital Ocean.
 ### destroy.yml
 Destroys a server on Digital Ocean.
 
-    ansible-playbook destroy.yml
+    ansible-playbook -i hosts destroy.yml
 
