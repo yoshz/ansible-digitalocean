@@ -1,0 +1,42 @@
+---
+
+# DO API settings
+do_client_id: ~
+do_api_key: ~
+
+# DO SSH key settings
+do_ssh_name: ansible
+do_ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+do_ssh_private_key: "~/.ssh/id_rsa"
+
+# DO droplet settings
+do_region: 10 # Frankfurt
+do_size: 66 # 512
+do_image: 13089823 # Ubuntu 14.04 x32
+
+# SSH
+ssh_port: 22
+
+# System user to create
+ssh_user: "{{ lookup('env', 'USERNAME') }}"
+ssh_groups: "sudo"
+ssh_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+# UFW
+ufw_allow_ports:
+  - 22
+  - 80
+
+# Swap settings
+swapfile_location: /swapfile
+swapfile_size: 4G
+swapfile_swappiness: 10
+swapfile_vfs_cache_pressure: 50
+
+# Logwatch
+logwatch_email: "root@localhost"  # Email Address which Logwatch reports to
+logwatch_detail: "low"            # The level of detail in the Logwatch report
+logwatch_range: "yesterday"       # The default time range for the Logwatch report
+logwatch_output: "stdout"         # The output method of the Logwatch report
+logwatch_format: "text"           # The format of the Logwatch report
+logwatch_cron_time: "daily"       # Cron special time specification nickname - must match with logwatch range!

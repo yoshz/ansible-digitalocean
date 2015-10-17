@@ -12,19 +12,22 @@ Inspired by [hostmaster/ansible-digitalocean-bootstrap](https://github.com/hostm
 
 ## Installation
 
-* Install ansible
+1. Install ansible [Ubuntu]
+  - sudo apt-get install python-pip
+  - sudo pip install ansible dopy
 
-    sudo apt-get install python-pip
-    sudo pip install ansible dopy
+2. Install ansible [OSX homebrew]
+  - brew install python-pip
+  - pip install ansible dopy
+
+3. Make sure your python path is configured correctly. 
+  - for example when using OSX homebrew
     
-* Make sure your python path is configured correctly. 
+    >     export PYTHONPATH=/usr/local/lib/python2.7/site-packages
 
-    # for example when using OSX homebrew
-    export PYTHONPATH=/usr/local/lib/python2.7/site-packages
+4. Copy vars.yml.dist to vars.yml and change the variables to your need.
 
-* Copy vars.yml.dist to vars.yml and change the variables to your need.
-
-* Create the default hosts file (optional):
+5. Create the default hosts file (optional):
 
     sudo echo "localhost ansible_connection=local" > /etc/ansible/hosts
 
@@ -41,7 +44,19 @@ Launch and provision a new server on Digital Ocean.
 
     ansible-playbook launch.yml
 
+#### What this Playbook do for you
+
+- configure swap file
+- install ufw, fail2ban
+- configure ufw allow ports for SSH
+- make sshd more secure: 
+  * PermitRootLogin=no
+  * PasswordAuthentication=no
+  * AllowGroups=sudo
+- config sudoers
+
 ### destroy.yml
 Destroys a server on Digital Ocean.
 
     ansible-playbook destroy.yml
+

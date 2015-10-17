@@ -2,11 +2,11 @@
   apt: upgrade=dist update_cache=yes
 
 - name: Install essential packages
-  apt: pkg="{{ item }}" state=latest 
+  apt: pkg="{{ item }}" state=latest
   with_items:
     - ntp
-    - fail2ban     
-         
+    - fail2ban
+
 - name: Ensure services is running and enabled
   service: name="{{ item }}" state=running enabled=yes
   with_items:

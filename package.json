@@ -1,0 +1,17 @@
+{
+  "name": "ansible-digitalocean",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scripts/api.js",
+  "bin" : { "api" : "./scripts/api.js" },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "js-yaml": "^3.3.1",
+    "request": "^2.60.0",
+    "yargs": "^3.16.1"
+  }
+}

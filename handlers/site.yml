@@ -1,0 +1,11 @@
+- name: restart sshd
+  service: name=ssh state=restarted
+
+- name: restart postfix
+  service: name=postfix state=restarted
+
+- name: restart ufw
+  service: name=ufw state=restarted
+
+- name: Reload sysctl
+  command: sysctl -p
