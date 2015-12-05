@@ -2,27 +2,31 @@
   vars_files:
     - vars.yml
   vars_prompt:
-    do_name: "Name of server"
-    do_dns: "DNS name to bind"
+    - name: do_name
+      prompt: "Name of server"
+      private: no
+    - name: do_dns
+      prompt: "DNS name to bind"
+      private: no
   tasks:
-    - digital_ocean_sshkey: >
+    - digital_ocean: >
         state=present
+        command=ssh
         name="{{ do_ssh_name }}"
         ssh_pub_key="{{ do_ssh_pub_key }}"
-        client_id={{ do_client_id }}
-        api_key={{ do_api_key }}
+        api_token={{ do_api_token }}
       register: do_droplet
 
     - digital_ocean: >
         state=active
+        command=droplet
         name={{ do_name }}
         region_id={{ do_region }}
         size_id={{ do_size }}
         image_id={{ do_image }}
         ssh_key_ids={{ do_droplet.ssh_key.id }}
         unique_name=yes
-        client_id={{ do_client_id }}
-        api_key={{ do_api_key }}
+        api_token={{ do_api_token }}
         wait_timeout=600
       register: do_droplet
 
@@ -31,11 +35,9 @@
         state=present
         name="{{ do_dns }}"
         ip="{{ do_droplet.droplet.ip_address }}"
-        client_id={{ do_client_id }}
-        api_key={{ do_api_key }}
+        api_token={{ do_api_token }}
       when: do_dns|length > 0
 
-    - debug: msg="ID is {{ do_droplet.droplet.id }}"
     - debug: msg="IP is {{ do_droplet.droplet.ip_address }}"
 
     - name: Add new droplet to inventory

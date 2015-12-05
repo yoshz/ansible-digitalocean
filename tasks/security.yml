@@ -7,7 +7,7 @@
 
 - name: Set up password-less sudo for admin users
   copy: >
-    content='%{{ ssh_groups }} ALL=(ALL) NOPASSWD:ALL'
+    content="%{{ ssh_groups }} ALL=(ALL) NOPASSWD:ALL\nDefaults    env_keep+=SSH_AUTH_SOCK\n"
     dest=/etc/sudoers.d/admin
     owner=root group=root mode=0440
 

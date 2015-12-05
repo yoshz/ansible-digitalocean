@@ -1,6 +1,5 @@
-# DO API v1 settings
-do_client_id: ~
-do_api_key: ~
+# DO API v2 settings
+do_api_token: ~
 
 # DO SSH key settings
 do_ssh_name: ansible
@@ -8,9 +7,9 @@ do_ssh_pub_key: "{{ lookup('file', '~/.ssh/id_dsa.pub') }}"
 do_ssh_private_key: "~/.ssh/id_dsa"
 
 # DO droplet settings
-do_region: 5 # AMS
-do_size: 63 # 1 GB / 1 CPU
-do_image: 13089493 # Ubuntu 14.04 x64
+do_region: ams2
+do_size: 512mb
+do_image: "ubuntu-14-04-x64"
 
 # Swap settings
 swapfile_location: /swapfile

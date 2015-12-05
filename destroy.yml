@@ -2,20 +2,23 @@
   vars_files:
     - vars.yml
   vars_prompt:
-    do_name: "Servername to destroy"
-    do_dns: "DNS name to delete"
+    - name: do_name
+      prompt: "Name of server to destroy"
+      private: no
+    - name: do_dns
+      prompt: "DNS name to delete"
+      private: no
   tasks:
-    - digital_ocean: >
+    - name: Delete droplet
+      digital_ocean: >
         state=absent
         name={{ do_name }}
         unique_name=yes
-        client_id={{ do_client_id }}
-        api_key={{ do_api_key }}
+        api_token={{ do_api_token }}
 
     - name: Remove DNS record
       digital_ocean_domain: >
         state=absent
         name="{{ do_dns }}"
-        client_id={{ do_client_id }}
-        api_key={{ do_api_key }}
+        api_token={{ do_api_token }}
       when: do_dns|length > 0
