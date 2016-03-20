@@ -1,2 +1,2 @@
 ansible>=2.0
-dopy
+dopy==0.3.5

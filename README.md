@@ -10,53 +10,42 @@ Bootstrap Digital Ocean droplets using Ansible to:
 
 Inspired by [hostmaster/ansible-digitalocean-bootstrap](https://github.com/hostmaster/ansible-digitalocean-bootstrap).
 
+
 Installation
-============
+------------
 
-* Install ansible 2.0:
-
-  * By source:
-
-    git clone git@github.com:ansible/ansible.git
-    cd ansible
-    git submodule update --init --recursive
-    make
-    sudo make install
-
-  * Ubuntu (v2.0 is not available yet):
-
-    sudo apt-get install python-pip
-    sudo pip install ansible dopy
-
-  * OSX homebrew (v2.0 is not available yet):
-
-    brew install python-pip
-    pip install ansible dopy
-
-* Add default hosts file otherwise you have to add arguments `-i hosts` when you run ansible-playbook:
-
-    sudo cp hosts /etc/ansible/hosts
+* Install [Ansible 2.0](http://docs.ansible.com/ansible/intro_installation.html)
 
 * Make sure your python path is configured correctly. For example:
 
+```
+    # On Ubuntu
     export PYTHONPATH=/usr/local/lib/python2.7/site-packages
+    # On OS X
+    export PYTHONPATH=/Library/Python/2.7/site-packages
+```
 
 * Copy vars.yml.dist to vars.yml and change the variables to your need.
 
 
-## Digital Ocean configuration
+Digital Ocean configuration
+---------------------------
 
 Create a new API key on the [API access page](https://cloud.digitalocean.com/api_access). 
 Add the api_token to `vars.yml`.
 
 
-## Playbooks
+Playbooks
+=========
 
-### launch.yml
+launch.yml
+----------
 
 Launch and provision a new server on Digital Ocean.
 
+```
     ansible-playbook -i hosts launch.yml
+```
 
 What this Playbook do for you?
 
@@ -69,14 +58,20 @@ What this Playbook do for you?
   - AllowGroups=sudo
 - config sudoers
 
-### destroy.yml
+destroy.yml
+-----------
+
 Destroys a server on Digital Ocean.
 
+```
     ansible-playbook -i hosts destroy.yml
+```
 
-## Known issues
+Known issues
+------------
 
-* When you run the playbook the second time you will get an error while registering the domainname. 
-  This is a bug inside the ansible digital_ocean module.
-  The error can be ignored by leaving the domainname empty.
+* dopy 0.3.7 is broken (error "name 'DoError' is not defined").
+  Downgrade use version 0.3.5 using `pip install dopy==0.3.5`.
 
+* digital_ocean_domain is broken (error "'Domain' object has no attribute 'id'") when you run the plabook the second time.
+  Keep the "DNS name" empty to avoid this error.

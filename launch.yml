@@ -1,4 +1,5 @@
 - hosts: localhost
+  connection: local
   vars_files:
     - vars.yml
   vars_prompt:
@@ -9,7 +10,8 @@
       prompt: "DNS name to bind"
       private: no
   tasks:
-    - digital_ocean: >
+    - name: Register SSH key
+      digital_ocean: >
         state=present
         command=ssh
         name="{{ do_ssh_name }}"
@@ -17,7 +19,8 @@
         api_token={{ do_api_token }}
       register: do_droplet
 
-    - digital_ocean: >
+    - name: Register Droplet
+      digital_ocean: >
         state=active
         command=droplet
         name={{ do_name }}
@@ -34,7 +37,7 @@
       digital_ocean_domain: >
         state=present
         name="{{ do_dns }}"
-        ip="{{ do_droplet.droplet.ip_address }}"
+        id="{{ do_droplet.droplet.id }}"
         api_token={{ do_api_token }}
       when: do_dns|length > 0
 

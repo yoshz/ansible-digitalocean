@@ -1,4 +1,5 @@
 - hosts: localhost
+  connection: local
   vars_files:
     - vars.yml
   vars_prompt:
